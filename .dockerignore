@@ -10,6 +10,7 @@ Dockerfile
 .git
 .gitignore
 .editorconfig
+.env
 
 LICENSE
 README.md
