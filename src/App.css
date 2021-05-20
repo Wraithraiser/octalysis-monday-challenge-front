@@ -1,38 +1,44 @@
-.App {
-  text-align: center;
-}
+.App {}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-container {
+  position: relative;
+  z-index: 0;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+
+.app-header {
+  position: sticky;
+  z-index: 10;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  background: var(--color-blurred-background);
+  backdrop-filter: blur(20px);
+}
+
+.main-container {
+  flex: 1 1 0%;
+  padding: 64px 0px;
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.messages-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.slack-message {
+  border: 1px solid black;
+  padding: 5px;
 }
