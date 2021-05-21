@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { fetchMessages } from './messages';
-import { messageParsing } from 'parser';
+import { messageParsing } from './parser';
 
 function App() {
   const [messages, setMessages] = useState([]);
