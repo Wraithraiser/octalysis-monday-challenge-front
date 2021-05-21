@@ -39,6 +39,12 @@
 }
 
 .slack-message {
-  border: 1px solid black;
+  border: 2px double rgb(255, 0, 115);
   padding: 5px;
+}
+
+.slack-replies {
+  border: 1px dashed rgb(255, 0, 115);
+  padding: 5px;
+  margin-left: 32px;
 }

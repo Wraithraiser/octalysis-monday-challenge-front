@@ -1,3 +1,5 @@
+import { messageParsing } from '../parser';
+
 function getApiUri(forceProduction = false) {
   if (forceProduction === true) {
     return `https://octalysis-proxy-server-svu2hashgq-ew.a.run.app`;
@@ -23,4 +25,29 @@ async function fetchMessages(setMessages) {
   }
 }
 
-export { fetchMessages };
+function htmlStringTag(htmlStrings, ...expressionValues) {
+  let htmlStringWithoutWhitespace = '';
+  for (let i = 0; i < expressionValues.length; i += 1) {
+    htmlStringWithoutWhitespace += htmlStrings[i].replace(/\s+.\s+/g, '') + expressionValues[i];
+  }
+  htmlStringWithoutWhitespace += htmlStrings[expressionValues.length].replace(/\s+.\s+/g, '');
+  return htmlStringWithoutWhitespace;
+}
+
+function getHtmlMessage(message) {
+  return htmlStringTag`
+    <p class="slack-message">
+      ${messageParsing(message)}
+    </p>
+  `;
+}
+
+function getHtmlReply(reply) {
+  return htmlStringTag`
+    <p class="slack-replies">
+      ${messageParsing(reply)}
+    </p>
+  `;
+}
+
+export { fetchMessages, getHtmlMessage, getHtmlReply };

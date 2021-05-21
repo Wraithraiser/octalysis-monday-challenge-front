@@ -1,7 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { fetchMessages } from './messages';
-import { messageParsing } from './parser';
+import { fetchMessages, getHtmlMessage, getHtmlReply } from './messages';
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -15,7 +14,15 @@ function App() {
     if (messages.length > 0) {
       const messagesText = [];
       for (const message of messages) {
-        messagesText.push(`<p class="slack-message">${messageParsing(message.text)}</p>`);
+        const replies = message.replies;
+        if (replies) {
+          messagesText.push(getHtmlMessage(replies[0].text));
+          for (let i = 1; i < replies.length; i += 1) {
+            messagesText.push(getHtmlReply(replies[i].text));
+          }
+        } else {
+          messagesText.push(getHtmlMessage(message.text));
+        }
       }
       setMessagesHtml(messagesText.join(''));
     }
