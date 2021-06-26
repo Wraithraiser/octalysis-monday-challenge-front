@@ -1,6 +1,11 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { fetchMessages, getHtmlMessage, getHtmlReply } from './messages';
+import { getCurrentMonth, getCurrentYearString } from './utils/date';
+import YearDropdown from './components/YearDropdown';
+import MonthDropdown from './components/MonthDropdown';
+
+import '@reach/listbox/styles.css';
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -28,13 +33,31 @@ function App() {
     }
   }, [messages]);
 
+  const [year, setYear] = useState(getCurrentYearString());
+  const [month, setMonth] = useState(getCurrentMonth());
+
+  const handleSearch = () => {
+    fetchMessages(setMessages, year, month);
+  };
+
   return (
     <div className="App">
       <div className="app-container">
         <header className="app-header"></header>
         <main className="main-container">
           <div className="messages-container">
-            <div style={{ whiteSpace: 'pre-wrap' }} dangerouslySetInnerHTML={{ __html: messagesHtml }} />
+            <div className="date-wrapper">
+              <YearDropdown year={year} setYear={setYear} />
+              <MonthDropdown month={month} setMonth={setMonth} />
+              <button type="button" onClick={handleSearch}>
+                Search
+              </button>
+            </div>
+            {messages.length > 0 ? (
+              <div style={{ whiteSpace: 'pre-wrap' }} dangerouslySetInnerHTML={{ __html: messagesHtml }} />
+            ) : (
+              <p>No messages</p>
+            )}
           </div>
         </main>
       </div>

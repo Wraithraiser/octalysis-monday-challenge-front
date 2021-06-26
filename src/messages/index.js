@@ -1,4 +1,5 @@
 import { messageParsing } from '../parser';
+import { getCurrentYearString, getCurrentMonth } from '../utils/date';
 
 function getApiUri(forceProduction = false) {
   if (forceProduction === true) {
@@ -9,8 +10,8 @@ function getApiUri(forceProduction = false) {
     : `https://octalysis-proxy-server-svu2hashgq-ew.a.run.app`;
 }
 
-async function fetchMessages(setMessages) {
-  const url = `${getApiUri()}/api/messages?year=2021&month=05&day=02`;
+async function fetchMessages(setMessages, year = getCurrentYearString(), month = getCurrentMonth()) {
+  const url = `${getApiUri()}/api/messages?year=${year}&month=${month}`;
   try {
     const response = await fetch(url, { method: 'GET' });
     if (response.ok) {
