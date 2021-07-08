@@ -1,9 +1,10 @@
 import './App.css';
+import styled from 'styled-components/macro';
 import { useEffect, useState } from 'react';
-import { fetchMessages, getHtmlMessage, getHtmlReply } from './messages';
-import { getCurrentMonth, getCurrentYearString } from './utils/date';
-import YearDropdown from './components/YearDropdown';
-import MonthDropdown from './components/MonthDropdown';
+import { fetchMessages, getHtmlMessage, getHtmlReply } from '../../messages';
+import { getCurrentMonth, getCurrentYearString } from '../../utils/date';
+import YearDropdown from '../YearDropdown';
+import MonthDropdown from '../MonthDropdown';
 
 import '@reach/listbox/styles.css';
 
@@ -41,28 +42,41 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div className="app-container">
-        <header className="app-header"></header>
-        <main className="main-container">
-          <div className="messages-container">
-            <div className="date-wrapper">
-              <YearDropdown year={year} setYear={setYear} />
-              <MonthDropdown month={month} setMonth={setMonth} />
-              <button type="button" onClick={handleSearch}>
-                Search
-              </button>
-            </div>
-            {messages.length > 0 ? (
-              <div style={{ whiteSpace: 'pre-wrap' }} dangerouslySetInnerHTML={{ __html: messagesHtml }} />
-            ) : (
-              <p>No messages</p>
-            )}
-          </div>
-        </main>
-      </div>
-    </div>
+    <>
+      <Main>
+        <DateWrapper>
+          <YearDropdown year={year} setYear={setYear} />
+          <MonthDropdown month={month} setMonth={setMonth} />
+          <button type="button" onClick={handleSearch}>
+            Search
+          </button>
+        </DateWrapper>
+        {messages.length > 0 ? (
+          <MessageWrapper dangerouslySetInnerHTML={{ __html: messagesHtml }} />
+        ) : (
+          <p>No messages</p>
+        )}
+      </Main>
+    </>
   );
 }
+
+const Main = styled.main`
+  padding: 64px 32px;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const DateWrapper = styled.div`
+  display: flex;
+  gap: 16px;
+`;
+
+const MessageWrapper = styled.div`
+  white-space: pre-wrap;
+  padding-top: 32px;
+`;
 
 export default App;

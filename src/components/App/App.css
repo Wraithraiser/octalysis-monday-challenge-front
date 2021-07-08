@@ -1,0 +1,15 @@
+.slack-message {
+  border: 2px double rgb(255, 0, 115);
+  padding: 5px;
+  overflow-wrap: break-word;
+  hyphens: auto;
+
+  /* Prefix for Safari */
+  -webkit-hyphens: auto;
+  margin-bottom: 1em;
+}
+
+.slack-replies {
+  border: 1px dashed rgb(255, 0, 115);
+  margin-left: 32px;
+}

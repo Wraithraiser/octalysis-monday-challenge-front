@@ -45,7 +45,7 @@ function getHtmlMessage(message) {
 
 function getHtmlReply(reply) {
   return htmlStringTag`
-    <p class="slack-replies">
+    <p class="slack-message slack-replies">
       ${messageParsing(reply)}
     </p>
   `;
