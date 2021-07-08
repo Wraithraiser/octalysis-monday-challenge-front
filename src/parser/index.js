@@ -6,7 +6,7 @@ import { italicBoldCombinationParser } from './italic-bold';
 import { slackQuoteParser } from './slack-quote';
 
 function messageParsing(message) {
-  return R.compose(emojiParser, boldParser, italicParser, italicBoldCombinationParser, slackQuoteParser)(message);
+  return R.compose(boldParser, italicParser, italicBoldCombinationParser, emojiParser, slackQuoteParser)(message);
 }
 
 function parseInsideText(text, replaceLeft, replaceRight) {
