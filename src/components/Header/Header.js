@@ -1,40 +1,72 @@
+import { useState } from 'react';
 import styled from 'styled-components/macro';
+import VisuallyHidden from '@reach/visually-hidden';
 
-import { WEIGHTS } from '../../constants';
+import { QUERIES, WEIGHTS } from '../../constants';
+import Icon from '../Icon';
 import Logo from '../Logo';
+import MobileMenu from '../MobileMenu';
+import UnstyledButton from '../UnstyledButton';
 
 const Header = () => {
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
   return (
-    <header>
+    <>
       <MainHeader>
-        <Side>
+        <LogoWrapper>
           <Logo />
-        </Side>
-        <Nav>
+        </LogoWrapper>
+        <DesktopNav>
           <NavLink href="">Challenges</NavLink>
           <NavLink href="">About</NavLink>
-        </Nav>
-        <Side />
+        </DesktopNav>
+        <MobileActions>
+          <UnstyledButton onClick={() => setShowMobileMenu(true)}>
+            <Icon id="menu" />
+            <VisuallyHidden>Open menu</VisuallyHidden>
+          </UnstyledButton>
+        </MobileActions>
+        <Filler />
       </MainHeader>
-    </header>
+
+      <MobileMenu isOpen={showMobileMenu} onDismiss={() => setShowMobileMenu(false)} />
+    </>
   );
 };
 
-const MainHeader = styled.div`
+const MainHeader = styled.header`
   display: flex;
   align-items: center;
   padding: 18px 32px;
   border-bottom: 1px solid var(--color-gray-300);
+
+  @media ${QUERIES.tabletAndSmaller} {
+    justify-content: space-between;
+  }
+
+  @media ${QUERIES.phoneAndSmaller} {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 `;
 
-const Nav = styled.nav`
+const LogoWrapper = styled.div`
+  flex: 1;
+
+  @media ${QUERIES.tabletAndSmaller} {
+    flex: revert;
+  }
+`;
+
+const DesktopNav = styled.nav`
   display: flex;
   gap: 48px;
   margin: 0px 48px;
-`;
 
-const Side = styled.div`
-  flex: 1;
+  @media ${QUERIES.tabletAndSmaller} {
+    display: none;
+  }
 `;
 
 const NavLink = styled.a`
@@ -46,6 +78,27 @@ const NavLink = styled.a`
 
   &:first-of-type {
     color: var(--color-secondary);
+  }
+`;
+
+const MobileActions = styled.div`
+  display: none;
+
+  @media ${QUERIES.tabletAndSmaller} {
+    display: flex;
+    gap: 32px;
+  }
+
+  @media ${QUERIES.phoneAndSmaller} {
+    gap: 16px;
+  }
+`;
+
+const Filler = styled.div`
+  flex: 1;
+
+  @media ${QUERIES.tabletAndSmaller} {
+    display: none;
   }
 `;
 
