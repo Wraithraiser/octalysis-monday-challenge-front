@@ -7,6 +7,7 @@ import YearDropdown from '../YearDropdown';
 import MonthDropdown from '../MonthDropdown';
 
 import '@reach/listbox/styles.css';
+import Header from '../Header/Header';
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -43,6 +44,7 @@ function App() {
 
   return (
     <>
+      <Header />
       <Main>
         <DateWrapper>
           <YearDropdown year={year} setYear={setYear} />
