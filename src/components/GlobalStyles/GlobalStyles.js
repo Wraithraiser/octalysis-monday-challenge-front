@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/named
 import { createGlobalStyle } from 'styled-components/macro';
-import { COLORS } from '../../constants';
+import { COLORS } from '../../utils/constants';
 
 const GlobalStyles = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/
