@@ -1,13 +1,16 @@
 import styled from 'styled-components/macro';
 import VisuallyHidden from '@reach/visually-hidden';
 import { DialogOverlay, DialogContent } from '@reach/dialog';
-
-import { WEIGHTS } from '../../constants';
+import { Link, useLocation } from 'react-router-dom';
 
 import UnstyledButton from '../UnstyledButton';
 import Icon from '../Icon';
+import { RouterPath } from '../../utils/router';
+import { WEIGHTS } from '../../utils/constants';
 
 const MobileMenu = ({ isOpen, onDismiss }) => {
+  const { pathname } = useLocation();
+
   return (
     <Overlay isOpen={isOpen} onDismiss={onDismiss}>
       <Content aria-label="Menu">
@@ -17,8 +20,12 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
         </CloseButton>
         <Filler />
         <Nav>
-          <NavLink href="">Challenges</NavLink>
-          <NavLink href="">About</NavLink>
+          <CustomLink to={RouterPath.challenge} $active={pathname === RouterPath.challenge}>
+            Challenges
+          </CustomLink>
+          <CustomLink to={RouterPath.about} $active={pathname === RouterPath.about}>
+            About
+          </CustomLink>
         </Nav>
       </Content>
     </Overlay>
@@ -63,16 +70,12 @@ const Nav = styled.nav`
   gap: 16px;
 `;
 
-const NavLink = styled.a`
-  color: var(--color-gray-900);
+const CustomLink = styled(Link)`
+  color: ${(props) => (props.$active ? 'var(--color-secondary)' : 'var(--color-gray-900)')};
   font-weight: ${WEIGHTS.medium};
   text-decoration: none;
   font-size: 1.125rem;
   text-transform: uppercase;
-
-  &:first-of-type {
-    color: var(--color-secondary);
-  }
 `;
 
 export default MobileMenu;

@@ -1,17 +1,20 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { WEIGHTS } from '../../constants';
+import { Link } from 'react-router-dom';
+
+import { WEIGHTS } from '../../utils/constants';
+import { RouterPath } from '../../utils/router';
 
 const Logo = (props) => {
   return (
-    <Link href="/">
+    <CustomLink to={RouterPath.challenge}>
       <Image alt="Octalysis Logo" src="/octagon.png"></Image>
       <Title {...props}>Octalysis</Title>
-    </Link>
+    </CustomLink>
   );
 };
 
-const Link = styled.a`
+const CustomLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 8px;

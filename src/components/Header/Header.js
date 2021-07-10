@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import styled from 'styled-components/macro';
 import VisuallyHidden from '@reach/visually-hidden';
+import { Link, useLocation } from 'react-router-dom';
 
-import { QUERIES, WEIGHTS } from '../../constants';
 import Icon from '../Icon';
 import Logo from '../Logo';
 import MobileMenu from '../MobileMenu';
 import UnstyledButton from '../UnstyledButton';
+import { RouterPath } from '../../utils/router';
+import { QUERIES, WEIGHTS } from '../../utils/constants';
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const { pathname } = useLocation();
 
   return (
     <>
@@ -18,8 +21,12 @@ const Header = () => {
           <Logo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href="">Challenges</NavLink>
-          <NavLink href="">About</NavLink>
+          <CustomLink to={RouterPath.challenge} $active={pathname === RouterPath.challenge}>
+            Challenges
+          </CustomLink>
+          <CustomLink to={RouterPath.about} $active={pathname === RouterPath.about}>
+            About
+          </CustomLink>
         </DesktopNav>
         <MobileActions>
           <UnstyledButton onClick={() => setShowMobileMenu(true)}>
@@ -69,16 +76,12 @@ const DesktopNav = styled.nav`
   }
 `;
 
-const NavLink = styled.a`
+const CustomLink = styled(Link)`
   font-size: 1.125rem;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--color-gray-900);
+  color: ${(props) => (props.$active ? 'var(--color-secondary)' : 'var(--color-gray-900)')};
   font-weight: ${WEIGHTS.medium};
-
-  &:first-of-type {
-    color: var(--color-secondary);
-  }
 `;
 
 const MobileActions = styled.div`
