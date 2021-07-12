@@ -81,6 +81,11 @@ html {
   --color-gray-900: hsl(${COLORS.gray[900]});
 
   --color-backdrop: hsl(${COLORS.gray[700]} / 0.8);
+
+  /*
+    Silence the warning about missing Reach Dialog styles
+  */
+    --reach-dialog: 1;
 }
 
 html, body, #root {
