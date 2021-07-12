@@ -46,12 +46,27 @@ function getHtmlMessage(message) {
   `;
 }
 
+function getHtmlReplyButton(id) {
+  return htmlStringTag`
+    <button id="js-button-open-reply-${id}" type="button" data-id=${id} class="reply-button">See Replies</button>
+  `;
+}
+
 function getHtmlReply(reply) {
   return htmlStringTag`
-    <p class="slack-message slack-replies">
+    <p class="slack-message slack-reply">
       ${messageParsing(reply)}
     </p>
   `;
 }
 
-export { fetchMessages, getHtmlMessage, getHtmlReply };
+function getHtmlReplyContainer(replies, id) {
+  return htmlStringTag`
+    <div id=${id} class="reply-container-hide">
+      ${replies}
+    </div>
+    <button id="js-button-close-reply-${id}" type="button" data-id=${id} class="reply-button button-reply-hide">Hide Replies</button>
+  `;
+}
+
+export { fetchMessages, getHtmlMessage, getHtmlReplyButton, getHtmlReply, getHtmlReplyContainer };

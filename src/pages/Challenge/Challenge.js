@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { useEffect, useState } from 'react';
 
 import { WEIGHTS } from '../../utils/constants';
-import { fetchMessages, getHtmlMessage, getHtmlReply } from '../../messages';
+import { fetchMessages, getHtmlMessage, getHtmlReplyButton, getHtmlReply, getHtmlReplyContainer } from '../../messages';
 import { getCurrentMonth, getCurrentYearString } from '../../utils/date';
 import YearDropdown from '../../components/YearDropdown';
 import MonthDropdown from '../../components/MonthDropdown';
@@ -25,9 +25,12 @@ const Challenge = () => {
         const replies = message.replies;
         if (replies) {
           messagesText.push(getHtmlMessage(replies[0].text));
+          messagesText.push(getHtmlReplyButton(message.client_msg_id));
+          let htmlReplies = '';
           for (let i = 1; i < replies.length; i += 1) {
-            messagesText.push(getHtmlReply(replies[i].text));
+            htmlReplies += getHtmlReply(replies[i].text);
           }
+          messagesText.push(getHtmlReplyContainer(htmlReplies, message.client_msg_id));
         } else {
           messagesText.push(getHtmlMessage(message.text));
         }
@@ -43,6 +46,36 @@ const Challenge = () => {
     fetchMessages(setMessages, year, month);
   };
 
+  function handleMessageClick(ev) {
+    const { id = null } = ev.target.dataset;
+    const hideReplyContainerClassname = 'reply-container-hide';
+    const hideButtonReplyClassname = 'button-reply-hide';
+    const openButtonReplyId = `js-button-open-reply-${id}`;
+    const closeButtonReplyId = `js-button-close-reply-${id}`;
+
+    if (ev.target.id === openButtonReplyId) {
+      const repliesContainer = document.getElementById(id);
+      if (repliesContainer) {
+        if (repliesContainer.classList.contains(hideReplyContainerClassname)) {
+          repliesContainer.classList.remove(hideReplyContainerClassname);
+          ev.target.classList.add(hideButtonReplyClassname);
+          const closeButton = document.getElementById(closeButtonReplyId);
+          closeButton.classList.remove(hideButtonReplyClassname);
+        }
+      }
+    } else if (ev.target.id === closeButtonReplyId) {
+      const repliesContainer = document.getElementById(id);
+      if (repliesContainer) {
+        if (repliesContainer.classList.contains(hideReplyContainerClassname) === false) {
+          repliesContainer.classList.add(hideReplyContainerClassname);
+          ev.target.classList.add(hideButtonReplyClassname);
+          const showButton = document.getElementById(openButtonReplyId);
+          showButton.classList.remove(hideButtonReplyClassname);
+        }
+      }
+    }
+  }
+
   return (
     <>
       <ContentTitle>Octalysis Mini&nbsp;Challenge</ContentTitle>
@@ -53,7 +86,11 @@ const Challenge = () => {
           Search
         </button>
       </DateWrapper>
-      {messages.length > 0 ? <MessageWrapper dangerouslySetInnerHTML={{ __html: messagesHtml }} /> : <p>No messages</p>}
+      {messages.length > 0 ? (
+        <MessageWrapper onClick={handleMessageClick} dangerouslySetInnerHTML={{ __html: messagesHtml }} />
+      ) : (
+        <p>No messages</p>
+      )}
     </>
   );
 };
