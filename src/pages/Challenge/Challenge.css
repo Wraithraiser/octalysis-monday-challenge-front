@@ -9,7 +9,20 @@
   margin-bottom: 1em;
 }
 
-.slack-replies {
+.slack-reply {
   border: 1px dashed rgb(255, 0, 115);
   margin-left: 32px;
+}
+
+.reply-button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  width: 150px;
+}
+
+.reply-container-hide, .button-reply-hide {
+  display: none;
 }
