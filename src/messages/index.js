@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import { messageParsing } from '../parser';
 import { getCurrentYearString, getCurrentMonth } from '../utils/date';
 
@@ -16,8 +17,10 @@ async function fetchMessages(setMessages, year = getCurrentYearString(), month =
     const response = await fetch(url, { method: 'GET' });
     if (response.ok) {
       const messages = await response.json();
-      console.log('messages: ', messages);
-      setMessages(messages);
+      const sortByTimestamp = R.sortBy(R.prop('ts'));
+      const sortedMessages = sortByTimestamp(messages);
+      console.log('messages: ', sortedMessages);
+      setMessages(sortedMessages);
     } else {
       console.log('response: ', response);
     }
