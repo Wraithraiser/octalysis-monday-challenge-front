@@ -82,9 +82,9 @@ const Challenge = () => {
       <DateWrapper>
         <YearDropdown year={year} setYear={setYear} />
         <MonthDropdown month={month} setMonth={setMonth} />
-        <button type="button" onClick={handleSearch}>
+        <SearchButton type="button" onClick={handleSearch}>
           Search
-        </button>
+        </SearchButton>
       </DateWrapper>
       {messages.length > 0 ? (
         <MessageWrapper onClick={handleMessageClick} dangerouslySetInnerHTML={{ __html: messagesHtml }} />
@@ -105,6 +105,20 @@ const ContentTitle = styled.h2`
 const DateWrapper = styled.div`
   display: flex;
   gap: 16px;
+  justify-content: center;
+`;
+
+const SearchButton = styled.button`
+  background-color: hsl(191.7deg 63.1% 47.8%);
+  color: var(--color-white);
+  width: 100px;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  cursor: pointer;
+
+  &:hover {
+    background-color: hsl(191.7deg 63.1% 47.8% / 80%);
+  }
 `;
 
 const MessageWrapper = styled.div`

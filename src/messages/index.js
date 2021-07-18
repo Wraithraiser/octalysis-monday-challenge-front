@@ -48,7 +48,7 @@ function getHtmlMessage(message) {
 
 function getHtmlReplyButton(id) {
   return htmlStringTag`
-    <button id="js-button-open-reply-${id}" type="button" data-id=${id} class="reply-button">See Replies</button>
+    <button id="js-button-open-reply-${id}" type="button" data-id=${id} class="reply-button reply-button-show">See Replies</button>
   `;
 }
 
@@ -62,7 +62,7 @@ function getHtmlReply(reply) {
 
 function getHtmlReplyContainer(replies, id) {
   return htmlStringTag`
-    <div id=${id} class="reply-container-hide">
+    <div id=${id} class="reply-container reply-container-hide">
       ${replies}
     </div>
     <button id="js-button-close-reply-${id}" type="button" data-id=${id} class="reply-button button-reply-hide">Hide Replies</button>
