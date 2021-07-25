@@ -89,10 +89,10 @@ html {
 }
 
 body {
-  background-color: hsl(214.3deg 31.8% 91.4%)
+  background-color: hsl(214.3deg 31.8% 91.4%);
 }
 
-html, body, #root {
+html, body {
   height: 100%;
 }
 
