@@ -45,8 +45,12 @@ const Header = () => {
 const MainHeader = styled.header`
   display: flex;
   align-items: center;
-  padding: 18px 32px;
+  padding: 16px 32px;
   border-bottom: 1px solid var(--color-gray-300);
+  position: sticky;
+  top: 0;
+  background-color: hsl(214.3deg 31.8% 91.4% / 0.5);
+  backdrop-filter: blur(20px);
 
   @media ${QUERIES.tabletAndSmaller} {
     justify-content: space-between;
