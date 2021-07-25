@@ -25,12 +25,13 @@ const Challenge = () => {
         const replies = message.replies;
         if (replies) {
           messagesText.push(getHtmlMessage(replies[0].text));
-          messagesText.push(getHtmlReplyButton(message.client_msg_id));
+          const replyId = message.client_msg_id || message.ts;
+          messagesText.push(getHtmlReplyButton(replyId));
           let htmlReplies = '';
           for (let i = 1; i < replies.length; i += 1) {
             htmlReplies += getHtmlReply(replies[i].text);
           }
-          messagesText.push(getHtmlReplyContainer(htmlReplies, message.client_msg_id));
+          messagesText.push(getHtmlReplyContainer(htmlReplies, replyId));
         } else {
           messagesText.push(getHtmlMessage(message.text));
         }
