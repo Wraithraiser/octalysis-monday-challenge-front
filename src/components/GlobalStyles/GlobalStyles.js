@@ -79,6 +79,7 @@ html {
   --color-gray-500: hsl(${COLORS.gray[500]});
   --color-gray-700: hsl(${COLORS.gray[700]});
   --color-gray-900: hsl(${COLORS.gray[900]});
+  --color-blue: hsl(${COLORS.blue});
 
   --color-backdrop: hsl(${COLORS.gray[700]} / 0.8);
 

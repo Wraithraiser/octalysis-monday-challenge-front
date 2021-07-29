@@ -3,23 +3,32 @@ import styled from 'styled-components/macro';
 import { useEffect, useState } from 'react';
 
 import { WEIGHTS } from '../../utils/constants';
-import { fetchMessages, getHtmlMessage, getHtmlReplyButton, getHtmlReply, getHtmlReplyContainer } from '../../messages';
+import {
+  getHtmlMessage,
+  getHtmlReplyButton,
+  getHtmlReply,
+  getHtmlReplyContainer,
+  useFetchMessages,
+} from '../../messages';
 import { getCurrentMonth, getCurrentYearString } from '../../utils/date';
 import YearDropdown from '../../components/YearDropdown';
 import MonthDropdown from '../../components/MonthDropdown';
+import Loader from '../../components/Loader/Loader';
 
 import '@reach/listbox/styles.css';
 
 const Challenge = () => {
-  const [messages, setMessages] = useState([]);
   const [messagesHtml, setMessagesHtml] = useState('');
+  const [date, setDate] = useState(() => ({
+    year: getCurrentYearString(),
+    month: getCurrentMonth(),
+  }));
+  const [year, setYear] = useState(getCurrentYearString());
+  const [month, setMonth] = useState(getCurrentMonth());
+  const { isLoading, error, data: messages } = useFetchMessages(date.year, date.month);
 
   useEffect(() => {
-    fetchMessages(setMessages);
-  }, []);
-
-  useEffect(() => {
-    if (messages.length > 0) {
+    if (messages?.length > 0) {
       const messagesText = [];
       for (const message of messages) {
         const replies = message.replies;
@@ -40,11 +49,11 @@ const Challenge = () => {
     }
   }, [messages]);
 
-  const [year, setYear] = useState(getCurrentYearString());
-  const [month, setMonth] = useState(getCurrentMonth());
-
   const handleSearch = () => {
-    fetchMessages(setMessages, year, month);
+    setDate({
+      year,
+      month,
+    });
   };
 
   function handleMessageClick(ev) {
@@ -77,6 +86,23 @@ const Challenge = () => {
     }
   }
 
+  function displayMessages() {
+    if (error) {
+      return <MessageEmpty>{error.message}</MessageEmpty>;
+    }
+    if (isLoading) {
+      return <Loader />;
+    }
+    if (messages?.length > 0) {
+      return <MessageWrapper onClick={handleMessageClick} dangerouslySetInnerHTML={{ __html: messagesHtml }} />;
+    }
+    return (
+      <MessageEmpty>
+        No messages found for {month} {year}
+      </MessageEmpty>
+    );
+  }
+
   return (
     <>
       <ContentTitle>Octalysis Mini&nbsp;Challenge</ContentTitle>
@@ -87,11 +113,7 @@ const Challenge = () => {
           Search
         </SearchButton>
       </DateWrapper>
-      {messages.length > 0 ? (
-        <MessageWrapper onClick={handleMessageClick} dangerouslySetInnerHTML={{ __html: messagesHtml }} />
-      ) : (
-        <p>No messages</p>
-      )}
+      {displayMessages()}
     </>
   );
 };
@@ -110,7 +132,7 @@ const DateWrapper = styled.div`
 `;
 
 const SearchButton = styled.button`
-  background-color: hsl(191.7deg 63.1% 47.8%);
+  background-color: var(--color-blue);
   color: var(--color-white);
   width: 100px;
   border-radius: 4px;
@@ -125,6 +147,15 @@ const SearchButton = styled.button`
 const MessageWrapper = styled.div`
   white-space: pre-wrap;
   padding-top: 32px;
+`;
+
+const MessageEmpty = styled.div`
+  margin-top: 64px;
+  padding: 8px;
+  text-align: center;
+  background-color: var(--color-white);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px 0 hsl(0 0% 0% / 10%), 0 1px 2px 0 hsl(0 0% 0% / 6%);
 `;
 
 export default Challenge;

@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { Menu, X } from 'react-feather';
+import { Menu, X, Octagon } from 'react-feather';
 
 const icons = {
   menu: Menu,
   close: X,
+  octagon: Octagon,
 };
 
 const Icon = ({ id, color, size, strokeWidth, ...delegated }) => {
