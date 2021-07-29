@@ -1,4 +1,5 @@
 import * as R from 'ramda';
+import { useQuery } from 'react-query';
 import { messageParsing } from '../parser';
 import { getCurrentYearString, getCurrentMonth } from '../utils/date';
 
@@ -11,7 +12,14 @@ function getApiUri(forceProduction = false) {
     : `https://octalysis-proxy-server-svu2hashgq-ew.a.run.app`;
 }
 
-async function fetchMessages(setMessages, year = getCurrentYearString(), month = getCurrentMonth()) {
+function useFetchMessages(year = getCurrentYearString(), month = getCurrentMonth()) {
+  const THREE_MINUTES = 60 * 3 * 1000;
+  return useQuery(`${year}_${month}`, () => fetchMessages(year, month), {
+    staleTime: THREE_MINUTES,
+  });
+}
+
+async function fetchMessages(year = getCurrentYearString(), month = getCurrentMonth()) {
   const url = `${getApiUri()}/api/messages?year=${year}&month=${month}`;
   try {
     const response = await fetch(url, { method: 'GET' });
@@ -19,13 +27,14 @@ async function fetchMessages(setMessages, year = getCurrentYearString(), month =
       const messages = await response.json();
       const sortByTimestamp = R.sortBy(R.prop('ts'));
       const sortedMessages = sortByTimestamp(messages);
-      console.log('messages: ', sortedMessages);
-      setMessages(sortedMessages);
+      return sortedMessages;
     } else {
-      console.log('response: ', response);
+      console.error('Error response: ', response);
+      throw Error(response.statusText);
     }
   } catch (err) {
     console.error('Error on fetch: ', err);
+    throw Error('Error when trying to get messages');
   }
 }
 
@@ -69,4 +78,4 @@ function getHtmlReplyContainer(replies, id) {
   `;
 }
 
-export { fetchMessages, getHtmlMessage, getHtmlReplyButton, getHtmlReply, getHtmlReplyContainer };
+export { fetchMessages, useFetchMessages, getHtmlMessage, getHtmlReplyButton, getHtmlReply, getHtmlReplyContainer };
