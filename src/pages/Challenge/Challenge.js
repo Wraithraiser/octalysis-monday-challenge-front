@@ -88,7 +88,7 @@ const Challenge = () => {
 
   function displayMessages() {
     if (error) {
-      return <MessageEmpty>{error.message}</MessageEmpty>;
+      return <MessageEmpty role="alert">{error.message}</MessageEmpty>;
     }
     if (isLoading) {
       return <Loader />;
