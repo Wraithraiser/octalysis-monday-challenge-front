@@ -49,7 +49,6 @@ const MainHeader = styled.header`
   border-bottom: 1px solid var(--color-gray-300);
   position: sticky;
   top: 0;
-  background-color: hsl(214.3deg 31.8% 91.4% / 0.5);
   backdrop-filter: blur(20px);
 
   @media ${QUERIES.tabletAndSmaller} {

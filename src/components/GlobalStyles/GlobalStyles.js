@@ -71,7 +71,8 @@ table {
 }
 
 html {
-  --color-white: hsl(${COLORS.white});
+  --color-white: hsl(${COLORS.white[100]});
+  --color-off-white: hsl(${COLORS.white[96]});
   --color-primary: hsl(${COLORS.primary});
   --color-secondary: hsl(${COLORS.secondary});
   --color-gray-100: hsl(${COLORS.gray[100]});
@@ -87,10 +88,6 @@ html {
     Silence the warning about missing Reach Dialog styles
   */
     --reach-dialog: 1;
-}
-
-body {
-  background-color: hsl(214.3deg 31.8% 91.4%);
 }
 
 html, body {

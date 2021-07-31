@@ -1,5 +1,8 @@
 export const COLORS = {
-  white: '0deg 0% 100%',
+  white: {
+    100: '0deg 0% 100%',
+    96: '0deg 0% 96%',
+  },
   gray: {
     100: '185deg 5% 95%',
     300: '190deg 5% 80%',
