@@ -98,7 +98,7 @@ const Challenge = () => {
     }
     return (
       <MessageEmpty>
-        No messages found for {month} {year}
+        No messages found for {date.month} {date.year}
       </MessageEmpty>
     );
   }
