@@ -13,6 +13,7 @@ export const COLORS = {
   primary: '340deg 65% 47%',
   secondary: '240deg 60% 63%',
   blue: '191.7deg 63.1% 47.8%',
+  blueLink: '212deg 65% 32%',
 };
 
 export const WEIGHTS = {
