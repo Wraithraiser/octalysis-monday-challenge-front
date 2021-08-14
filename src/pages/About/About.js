@@ -31,7 +31,7 @@ const About = () => {
       <Title>Want to know more about Octalysis?</Title>
       <Text>Yu-kai Chou created the Octalysis Framework.</Text>
       <Link href="https://yukaichou.com/gamification-expert/" target="_blank" rel="noopener">
-        Who is Yu-Kai Chou?
+        Who is Yu-kai Chou?
       </Link>
       <Link
         href="https://yukaichou.com/gamification-examples/octalysis-complete-gamification-framework/"
