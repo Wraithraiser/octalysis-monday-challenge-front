@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# What is the Octalysis Mini Challenge?
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Octalysis Mini Challenge is a weekly event for Octalysis Prime members happening in the Slack community. It's a safe and fun place for primers to put their knowledge into practice and learn from others.
 
-## Available Scripts
+The Octalysis Prime team proposes challenges, but primers can also host the event for the week.
 
-In the project directory, you can run:
+# Why this project?
 
-### `yarn start`
+Only the most recent 10,000 messages can be viewed and searched in the Slack free version. I built this project to save the content of the mini-challenge. The challenges are good, and there are a lot of quality answers from the community. I wanted to preserve the hard work of everyone and let new members discover previous challenges.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Who are you?
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+I'm a software developer from France and an Octalysis Prime member. I joined the community 2 years ago to learn more about gamification and found that the Octalysis Framework is practical and fun to apply in many situations.
 
-### `yarn test`
+# Want to know more about Octalysis?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Yu-kai Chou created the Octalysis Framework.
 
-### `yarn build`
+- [Who is Yu-kai Chou?](https://yukaichou.com/gamification-expert/)
+- [What is the Octalysis Framework?](https://yukaichou.com/gamification-examples/octalysis-complete-gamification-framework/)
+- [What is Octalysis Prime?](https://join.octalysisprime.com/)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Tech Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The project includes **three parts**: a backend, a proxy server, and a frontend, each in its own Github repository. They are all hosted in [Google Cloud Run](https://cloud.google.com/run/) using docker.
 
-### `yarn eject`
+The [backend](https://github.com/Wraithraiser/octalysis-monday-challenge) is a Node.js server using [Express.js](http://expressjs.com/). Its role is to consume the [Slack Web API](https://api.slack.com/web), work on the data, communicate with a mongo database, and expose services through an API.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The [proxy server](https://github.com/Wraithraiser/octalysis-proxy-server) is for security purposes. The backend is private by default using **Google Cloud Run** feature. Only by going through the proxy can we consume the API. The proxy server is public and only exposes public API resources. It's also a Node.js server with Express.js.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Finally, the [frontend](https://github.com/Wraithraiser/octalysis-monday-challenge-front) consumes the API through the proxy server to display the data for the user. It's a basic [Create React App](https://create-react-app.dev/) with some lib from React ecosystem like [styled-components](https://styled-components.com/) and [React Query](https://react-query.tanstack.com/).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Here's a flow chart of the [Architecture](https://whimsical.com/archi-technique-JfsCh4TbUh32WZTsvEGdzv@2Ux7TurymN25iRixJCsQ).
