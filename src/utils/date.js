@@ -3,9 +3,13 @@ function getCurrentYearString() {
   return currentDate.getFullYear().toString();
 }
 
+function getYearString(date) {
+  return date.getFullYear().toString();
+}
+
 function getCurrentMonth() {
   const currentDate = new Date();
   return new Intl.DateTimeFormat('en-US', { month: 'long' }).format(currentDate);
 }
 
-export { getCurrentYearString, getCurrentMonth };
+export { getCurrentYearString, getYearString, getCurrentMonth };
